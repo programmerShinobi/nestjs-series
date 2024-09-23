@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { configLoads } from './modules/config/index.config';
+import { configLoads } from '../config/index.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfigFactory } from '../database/typeorm.factory';
 
 const modules = [];
+
+const typeOrmConfig = new TypeOrmConfigFactory().createTypeOrmOptions();
 
 export const global_modules = [
   ConfigModule.forRoot({
@@ -12,11 +14,12 @@ export const global_modules = [
     isGlobal: true,
     envFilePath: ['.env'],
   }),
+  TypeOrmModule.forRoot(typeOrmConfig),
 ];
 
 @Module({
   imports: [...global_modules, ...modules],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
