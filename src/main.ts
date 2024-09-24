@@ -2,6 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import {
+  createApplication,
+  documentationBuilder,
+} from './utils/bootstrap.util';
 
 async function bootstrap() {
   const log = new Logger(bootstrap.name);
@@ -11,6 +15,10 @@ async function bootstrap() {
   // getting configService from application
   // to fetch port from app.config.ts config load
   const configService = app.get(ConfigService);
+
+  // bootstrap functions
+  createApplication(app);
+  documentationBuilder(app, configService);
 
   const PORT = configService.get('app.port') || 8000;
 

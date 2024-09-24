@@ -3,10 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { configLoads } from '../config/index.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigFactory } from '../database/typeorm.factory';
+import { AuthModule } from '../auth/auth.module';
 
-const modules = [];
-
-const typeOrmConfig = new TypeOrmConfigFactory().createTypeOrmOptions();
+const modules = [AuthModule];
 
 export const global_modules = [
   ConfigModule.forRoot({
@@ -14,7 +13,9 @@ export const global_modules = [
     isGlobal: true,
     envFilePath: ['.env'],
   }),
-  TypeOrmModule.forRoot(typeOrmConfig),
+  TypeOrmModule.forRootAsync({
+    useClass: TypeOrmConfigFactory,
+  }),
 ];
 
 @Module({
