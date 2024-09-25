@@ -16,7 +16,7 @@ export const documentationBuilder = (
   const config = new DocumentBuilder()
     .addBearerAuth()
     .setTitle(configService.get('app.name'))
-    .setDescription('The Danimai API description')
+    .setDescription('The Shinobi API description')
     .setVersion('1')
     .build();
 
