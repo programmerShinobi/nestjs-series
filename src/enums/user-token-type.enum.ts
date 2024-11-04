@@ -1,0 +1,4 @@
+export enum UserTokenTypeEnum {
+  REGISTER_VERIFY = 'REGISTER_VERIFY',
+  RESET_PASSWORD = 'RESET_PASSWORD',
+}

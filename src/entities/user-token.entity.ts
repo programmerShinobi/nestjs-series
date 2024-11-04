@@ -2,11 +2,7 @@ import { randomStringGenerator } from '@nestjs/common/utils/random-string-genera
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { UserEntity as User } from './user.entity';
 import { BaseEntity } from './base.entity';
-
-export enum TokenType {
-  REGISTER_VERIFY = 'REGISTER_VERIFY',
-  RESET_PASSWORD = 'RESET_PASSWORD',
-}
+import { UserTokenTypeEnum } from 'src/enums/user-token-type.enum';
 
 @Entity({ name: 'user_tokens' })
 export class UserTokenEntity extends BaseEntity {
@@ -16,8 +12,8 @@ export class UserTokenEntity extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   is_used: boolean;
 
-  @Column({ type: 'enum', enum: TokenType })
-  type: TokenType;
+  @Column({ type: 'enum', enum: UserTokenTypeEnum })
+  type: UserTokenTypeEnum;
 
   @Column({ type: 'timestamp' })
   expires_at: Date;
